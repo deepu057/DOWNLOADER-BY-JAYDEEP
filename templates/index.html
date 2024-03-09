@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube Video Downloader</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #555;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  textarea {
+    width: calc(100% - 40px);
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+  }
+  button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+  }
+  progress {
+    width: 100%;
+    height: 20px;
+    margin-top: 10px;
+  }
+  .h2:hover{
+    border: 3px solid orangered;
+  }
+  
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>WELCOME TO JAYDEEP OMPRAKASH SHARMA'S YT DOWNLOADER</h2>
+  <textarea id="videoUrl" placeholder="Paste YouTube video URLs here" rows="5"></textarea>
+  <button onclick="downloadVideo()">Download</button>
+  <progress id="downloadProgress" value="0" max="100"></progress>
+</div>
+
+<script>
+function downloadVideo() {
+  var videoUrls = document.getElementById('videoUrl').value.split('\n');
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/download', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      var response = JSON.parse(xhr.responseText);
+      alert(response.message);
+    }
+  };
+  xhr.send(JSON.stringify({ videoUrls: videoUrls }));
+}
+</script>
+
+</body>
+</html>
